@@ -6,7 +6,6 @@ To train network with your dataset:
 1. initialize NN (defines NN architecture):  
   * using `initialization.initialize_parameters_random()`  
   * in case of Deep Networks (5+ hidden layers), you may use `initializaiton.initialize_parameters_he()` in order to overcome Vanishing/Exploding weight problem.  
-  
   *Example*:  
     initialization of Binary Classification NN with 2 hidden layers 5 activation units each:  
         `parameters = initialization.initialize_parameters_random([X.shape[0], 5, 5, 1])`  
