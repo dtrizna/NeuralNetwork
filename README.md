@@ -6,14 +6,15 @@ To train network with your dataset:
 
   * using `initialization.initialize_parameters_random()`  
   * in case of Deep Networks (5+ hidden layers), you may use `initializaiton.initialize_parameters_he()` in order to overcome Vanishing/Exploding weight problem.  
-  
+
    *Example*:  
-   Initialization of Binary Classification NN with 2 hidden layers 5 activation units each:  `parameters = initialization.initialize_parameters_random([X.shape[0], 5, 5, 1])`  
+   Initialization of Binary Classification NN with 2 hidden layers 5 activation units each:  
+   `parameters = initialization.initialize_parameters_random([X.shape[0], 5, 5, 1])`
 
 2. Normalize features of Train/Dev/Test sets using `modules.featureNormalization()`
 3. Call `train.train()` by feeding into Train data set (X) and it's labeled data (Y)  
   
-   *Usage Notes!*  
+   *Usage Notes!*
 
   * find correct `learning_rate` by using `print_cost=True`. If:
     - CF value is increasing:
