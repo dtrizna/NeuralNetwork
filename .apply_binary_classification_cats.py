@@ -11,16 +11,16 @@ def load_data():
     train_set_x_orig = np.array(train_dataset["train_set_x"][:]) # your train set features
     train_set_y_orig = np.array(train_dataset["train_set_y"][:]) # your train set labels
 
-    test_dataset = h5py.File('datasets/binary_classification_cats/test_catvnoncat.h5', "r")
-    test_set_x_orig = np.array(test_dataset["test_set_x"][:]) # your test set features
-    test_set_y_orig = np.array(test_dataset["test_set_y"][:]) # your test set labels
+    dev_dataset = h5py.File('datasets/binary_classification_cats/test_catvnoncat.h5', "r")
+    dev_set_x_orig = np.array(dev_dataset["test_set_x"][:]) # your dev set features
+    dev_set_y_orig = np.array(dev_dataset["test_set_y"][:]) # your dev set labels
 
-    classes = np.array(test_dataset["list_classes"][:]) # the list of classes
+    classes = np.array(dev_dataset["list_classes"][:]) # the list of classes
     
     train_set_y_orig = train_set_y_orig.reshape((1, train_set_y_orig.shape[0]))
-    test_set_y_orig = test_set_y_orig.reshape((1, test_set_y_orig.shape[0]))
+    dev_set_y_orig = dev_set_y_orig.reshape((1, dev_set_y_orig.shape[0]))
     
-    return train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes
+    return train_set_x_orig, train_set_y_orig, dev_set_x_orig, dev_set_y_orig, classes
 
 
 def gradient_check(train_x, train_y):
@@ -41,7 +41,7 @@ def see_cat(idx, train_x_orig, train_y, classes):
     
 
 def main(to_see_cat = False):
-    train_x_orig, train_y, test_x_orig, test_y, classes = load_data()
+    train_x_orig, train_y, dev_x_orig, dev_y, classes = load_data()
 
     if to_see_cat:
         while True:
@@ -56,14 +56,14 @@ to see it OR anything else to start training: ".format(len(train_x_orig)-1))
                 break
 
     # NORMALIZE FEATURES
-    # Reshape the training and test examples
+    # Reshape the training and dev examples
     train_x_flatten = train_x_orig.reshape(train_x_orig.shape[0], -1).T   
     # The "-1" makes reshape flatten the remaining dimensions
-    test_x_flatten = test_x_orig.reshape(test_x_orig.shape[0], -1).T
+    dev_x_flatten = dev_x_orig.reshape(dev_x_orig.shape[0], -1).T
 
     # Standardize data to have feature values between 0 and 1.
     train_x = train_x_flatten/255.
-    test_x = test_x_flatten/255.
+    dev_x = dev_x_flatten/255.
     # END NORMALIZE
 
     # CAN BE ENABLED FOR BACKPROP VERIFICATION
@@ -74,14 +74,15 @@ to see it OR anything else to start training: ".format(len(train_x_orig)-1))
     # WITHOUT REGULARIZATION
     #trained_weights = train(train_x, train_y, parameters, 1501, learning_rate=0.02)
 
-    # WITH L2 REGULARIZATION
-    trained_weights = train(train_x, train_y, parameters, 1501, learning_rate=0.02, lambd=0.7)
-
-    print("Prediction on Train set:")
-    predict(train_x, train_y, trained_weights)
-    print("Prediction on Test set:")
-    predict(test_x, test_y, trained_weights)
+    # WITH L2 REGULARIZATION - SEEKING BEST LAMBDA
+    for l in [0.01, 0.1, 0.7, 1, 1.5, 3, 10]:
+        trained_weights = train(train_x, train_y, parameters, 1501, learning_rate=0.02, lambd=l, print_cost=False)
+        print("Lambda value: {}".format(l))
+        #print("Prediction on Train set:")
+        #predict(train_x, train_y, trained_weights)
+        print("Prediction on Dev set:")
+        predict(dev_x, dev_y, trained_weights)
 
 
 if __name__ == "__main__":
-    main(True)
+    main(False)
