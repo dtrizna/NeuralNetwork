@@ -46,7 +46,7 @@ def L_model_backprop(AL, Y, caches, lambd=0):
 
     # Cost Function's partial derivative in respect to AL
     dAL = - (np.divide(Y, AL) - np.divide(1 - Y, 1 - AL))
-
+    
     # Lth layer (SIGMOID -> LINEAR) gradients
     grads["dA" + str(L-1)], \
     grads["dW" + str(L)], \

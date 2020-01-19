@@ -4,12 +4,12 @@ def compute_cost(AL, Y):
     """
     cross-entropy cost
     """
-    
     m = Y.shape[1]
     cost = (np.dot(Y, np.log(AL).T) + np.dot((1 - Y), np.log(1 - AL).T)) / -m
-    
+
+
     cost = np.squeeze(cost) # e.g. this turns [[17]] into 17
-    assert(cost.shape == ())
+    assert cost.shape == ()
     return cost
 
 def compute_cost_with_L2regularization(AL, Y, parameters, lambd):

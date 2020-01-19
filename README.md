@@ -4,24 +4,16 @@
 To train network with your dataset:  
 1. Initialize Neural Network (NN), defines architecture using `initialization.initialize_parameters_random()`
   
-   *Example*
+   *Example:*
 
-   Initialization of Binary Classification NN with 2 hidden layers 5 Activation Units (AU) each:  
+   Initialization of Binary Classification NN with 2 hidden layers and 5 Activation Units (AU) each:  
    `parameters = initialization.initialize_parameters_random([X.shape[0], 5, 5, 1])`
 
 2. Normalize features of Train/Dev/Test sets using `modules.featureNormalization()`
 3. Call `train.train()` by feeding into Train data set (X) and it's labeled data (Y)  
-  
-   *Usage Notes!*
-
-  * find correct `learning_rate` by using `print_cost=True`. If:
-    - CF value is increasing:
-      + choose lower `learning_rate`
-    - CF value is decreasing, but slowly:
-      + choose higher `learning_rate`
-      + verify if features are correctly normalized
-  * if you supply `lambd` value to function, it will implement L2 Regularization.
-  * if you supply `keep_prob` value to function, it will implement DropOut Regularization.
+  * to find correct `learning_rate`, use `print_cost=True`
+  * if you supply `lambd` value to function, it will implement L2 Regularization
+  * if you supply `keep_prob` value to function, it will implement DropOut Regularization
 
 4. Tune Parameters/Hyperparameters on Dev set.
 5. Analyze algorithm performance on Test set.
@@ -53,10 +45,10 @@ To train network with your dataset:
 
 5. If algorithm does well on Training set, but prediction on Dev set is poor, then Variance reduction tecnhiques should help:
   - Regularization (L2, Dropout)
-  - more training data (which gives better generalization)
+  - more training data (gives better generalization)
 
 6. If prediction on Train and Dev sets is good, but algorithm fails to predict Test set or Real world data:
-  - be sure Dev and Test set comes from same distribution (same data)
+  - be sure Dev and Test set come from same distribution (same data divided randomly)
   - understand whether Dev set represents Real world requiremenents well
   - analyze your evaluation metrics
 
