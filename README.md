@@ -2,11 +2,8 @@
 # Usage Notes
 
 To train network with your dataset:  
-1. Initialize Neural Network (NN), defines architecture:  
-
-  * using `initialization.initialize_parameters_random()`  
-  * in case of Deep Networks (5+ hidden layers), you may use `initializaiton.initialize_parameters_he()` in order to overcome Vanishing/Exploding weight problem.  
-
+1. Initialize Neural Network (NN), defines architecture using `initialization.initialize_parameters_random()`
+  
    *Example*
 
    Initialization of Binary Classification NN with 2 hidden layers 5 Activation Units (AU) each:  
@@ -36,10 +33,39 @@ To train network with your dataset:
 - DropOut Regularization
 - Batch Normalization
 
+# Optimization Notes
+
+1. In case of Deep Networks (5+ hidden layers), consider to use `initializaiton.initialize_parameters_he()` in order to overcome Vanishing/Exploding weight problem.  
+
+2. If Cost Function (CF) is not decreasing over epochs:
+  - try to decrease `learning_rate`
+
+3. If training process is slow (little decrease of CF over epochs, long time to iterate over epoch), then:
+  - try to increase `learning_rate`
+  - verify whether features are Normalized correctly
+  - try to use Mini-Batch Gradient Descent (GD)
+  - try to use GD optimization algorithms (momentum, RMSProp, Adam)
+
+4. If algorithm does poorly predicting even Training set (you should compare this result with Human level error / Bayes error), then Bias reduction techniques should improve performance:
+  - training more Complex Network (more AU in level, more levels)
+  - longer training
+  - adding more features (more information about dataset, e.g. improving quality of pictures)
+
+5. If algorithm does well on Training set, but prediction on Dev set is poor, then Variance reduction tecnhiques should help:
+  - Regularization (L2, Dropout)
+  - more training data (which gives better generalization)
+
+6. If prediction on Train and Dev sets is good, but algorithm fails to predict Test set or Real world data:
+  - be sure Dev and Test set comes from same distribution (same data)
+  - understand whether Dev set represents Real world requiremenents well
+  - analyze your evaluation metrics
+
 # Binary Classification Example
 
 ## Dataset "binary_classification_cats"
 
+Number of training examples: 209
+Number of dev examples: 
 Code: `.apply_binary_classification_cats.py`  
 
 ### Training without Regularization 
@@ -55,18 +81,7 @@ Accuracy: 0.68
 ```
 
 *Optimization Rationale:*
-
-Algorithm does well on Training set, thus there's no big Avoidable Bias (assuming that Human and Bayer errors are close to 0%). Therefore, Bias reduction tecnhiques as:  
-- training more Deep/Complex network
-- improving quality of pictures
-- longer training
-- Gradient Descent optimizations (e.g. Adam)  
-... won't help, assuming that Train and Dev sets come from same distribution (which indeed are).  
-  
-There's huge gat between Dev and Test set results, which is due to Variance. So:  
-- regularization
-- more training data (which gives better generalization)
-.. should help.
+Assuming that Human and Bayer errors are close to 0%, this realization has High Variance problem. Regularization or more training data should improve results.
 
 ### Training with L2 Regularization
 

@@ -74,23 +74,18 @@ to see it OR anything else to start training: ".format(len(train_x_orig)-1))
     parameters = initialize_parameters_random([train_x.shape[0], 7, 1])
 
     # WITHOUT REGULARIZATION
-    trained_weights = train(train_x, train_y, parameters, 3501, learning_rate=0.0075)
+    trained_weights = train(train_x, train_y, parameters, 1501, learning_rate=0.0075)
     print_results(train_x, train_y, trained_weights, 'Train')
     print_results(dev_x, dev_y, trained_weights, 'Dev')
 
     # WITH L2 REGULARIZATION - SEEKING BEST LAMBDA
     for l in [0.01, 0.03, 0.1, 0.3, 1, 3, 10]:
-    # ZOOMING RANGE
-    #for l in [0.01, 0.02, 0.03, 0.06, 0.1, 0.2, 0.3]:
+        trained_weights = []
         trained_weights = train(train_x, train_y, parameters, \
-                            iterations=3501, learning_rate=0.0075, \
+                            iterations=1501, learning_rate=0.0075, \
                             lambd=l, print_cost=False)
         print("Lambda value: {}".format(l))
         print_results(dev_x, dev_y, trained_weights, 'Dev')
-
-    # WITH REGULARIZATION AND BEST LAMBDA
-    #trained_weights = train(train_x, train_y, parameters, 2501, learning_rate=0.0075, lambd=0.1)
-    #print_results(dev_x, dev_y, trained_weights, 'Dev')
 
 if __name__ == "__main__":
     main(False)
