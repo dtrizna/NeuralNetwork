@@ -70,7 +70,7 @@ There's huge gat between Dev and Test set results, which is due to Variance. So:
 
 ### Training with L2 Regularization
 
-Improved of prediction up to 76% using L2 Regularization with lambda = 0.1:
+Improved of prediction up to 76% using L2 Regularization with lambda = 0.1 or 0.03:
 ```
 Prediction on Dev set:
 

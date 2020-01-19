@@ -2,9 +2,11 @@ import numpy as np
 import h5py
 import matplotlib.pyplot as plt
 from modules.initialization import initialize_parameters_random
+from modules.predict import print_results
+from modules.gradCheck import gradient_check
+from modules.forwardProp import L_model_forward
+from modules.backProp import L_model_backprop
 from train import train
-from modules.predict import predict
-
 
 def load_data():
     train_dataset = h5py.File('datasets/binary_classification_cats/train_catvnoncat.h5', "r")
@@ -16,17 +18,14 @@ def load_data():
     dev_set_y_orig = np.array(dev_dataset["test_set_y"][:]) # your dev set labels
 
     classes = np.array(dev_dataset["list_classes"][:]) # the list of classes
-    
+   
     train_set_y_orig = train_set_y_orig.reshape((1, train_set_y_orig.shape[0]))
     dev_set_y_orig = dev_set_y_orig.reshape((1, dev_set_y_orig.shape[0]))
-    
+
     return train_set_x_orig, train_set_y_orig, dev_set_x_orig, dev_set_y_orig, classes
 
 
-def gradient_check(train_x, train_y):
-    from modules.gradCheck import gradient_check
-    from modules.forwardProp import L_model_forward
-    from modules.backProp import L_model_backprop
+def gradient_check_cats(train_x, train_y):
     parameters = initialize_parameters_random([train_x[:10, :3].shape[0], 3, 1])
     AL, caches = L_model_forward(train_x[:10, :3], parameters)
     grads = L_model_backprop(AL, train_y[:10, :3], caches)
@@ -38,9 +37,9 @@ def see_cat(idx, train_x_orig, train_y, classes):
     print ("y = " + str(train_y[0, idx]) + ". It's a " + \
         classes[train_y[0, idx]].decode("utf-8") +  " picture.")
     plt.show()
-    
 
-def main(to_see_cat = False):
+
+def main(to_see_cat=False):
     train_x_orig, train_y, dev_x_orig, dev_y, classes = load_data()
 
     if to_see_cat:
@@ -67,22 +66,31 @@ to see it OR anything else to start training: ".format(len(train_x_orig)-1))
     # END NORMALIZE
 
     # CAN BE ENABLED FOR BACKPROP VERIFICATION
-    # gradient_check(train_x, train_y)
+    # gradient_check_cats(train_x, train_y)
 
+    # TO HAVE CONSISTENT RESULTS
+    np.random.seed(3)
+    #parameters = initialize_parameters_random([train_x.shape[0], 20, 7, 5, 1])
     parameters = initialize_parameters_random([train_x.shape[0], 7, 1])
 
     # WITHOUT REGULARIZATION
-    #trained_weights = train(train_x, train_y, parameters, 1501, learning_rate=0.02)
+    trained_weights = train(train_x, train_y, parameters, 3501, learning_rate=0.0075)
+    print_results(train_x, train_y, trained_weights, 'Train')
+    print_results(dev_x, dev_y, trained_weights, 'Dev')
 
     # WITH L2 REGULARIZATION - SEEKING BEST LAMBDA
-    for l in [0.01, 0.1, 0.7, 1, 1.5, 3, 10]:
-        trained_weights = train(train_x, train_y, parameters, 1501, learning_rate=0.02, lambd=l, print_cost=False)
+    for l in [0.01, 0.03, 0.1, 0.3, 1, 3, 10]:
+    # ZOOMING RANGE
+    #for l in [0.01, 0.02, 0.03, 0.06, 0.1, 0.2, 0.3]:
+        trained_weights = train(train_x, train_y, parameters, \
+                            iterations=3501, learning_rate=0.0075, \
+                            lambd=l, print_cost=False)
         print("Lambda value: {}".format(l))
-        #print("Prediction on Train set:")
-        #predict(train_x, train_y, trained_weights)
-        print("Prediction on Dev set:")
-        predict(dev_x, dev_y, trained_weights)
+        print_results(dev_x, dev_y, trained_weights, 'Dev')
 
+    # WITH REGULARIZATION AND BEST LAMBDA
+    #trained_weights = train(train_x, train_y, parameters, 2501, learning_rate=0.0075, lambd=0.1)
+    #print_results(dev_x, dev_y, trained_weights, 'Dev')
 
 if __name__ == "__main__":
     main(False)

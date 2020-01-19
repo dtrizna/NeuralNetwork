@@ -7,4 +7,4 @@ generated-members=numpy.*,torch.*
 
 [MESSAGES CONTROL]
 
-disable=C0103,W0621,E1136
+disable=C0103,W0621,E1136,C0114,C0116

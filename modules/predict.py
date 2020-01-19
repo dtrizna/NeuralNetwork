@@ -29,3 +29,8 @@ def predict(X, Y, parameters):
     print("Accuracy: "  + str(np.sum((p == Y)/m)))
         
     return p
+
+def print_results(set_x, set_y, weights, name):
+    print("Prediction on {} set:".format(name))
+    predict(set_x, set_y, weights)
+    
