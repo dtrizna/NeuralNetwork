@@ -66,32 +66,32 @@ to see it OR anything else to start training: ".format(len(train_x_orig)-1))
     # END NORMALIZE
 
     # CAN BE ENABLED FOR BACKPROP VERIFICATION
-    gradient_check_cats(train_x, train_y)
+    #gradient_check_cats(train_x, train_y)
 
     #TO HAVE CONSISTENT RESULTS
     np.random.seed(1)
     
     # INIT NETWORK (SET UP ARCH)
-    parameters = initialize_parameters_random([train_x.shape[0], 7, 1])
+    parameters = initialize_parameters_random([train_x.shape[0], 20, 7, 1])
 
     # WITHOUT REGULARIZATION
-    #trained_weights = train(train_x, train_y, parameters, 3000, learning_rate=0.0075)
+    #trained_weights = train(train_x, train_y, parameters, 2000, learning_rate=0.05)
     #print_results(train_x, train_y, trained_weights, 'Train')
     #print_results(dev_x, dev_y, trained_weights, 'Dev')
 
     # WITH L2 REGULARIZATION - SEEKING BEST LAMBDA
-    for l in [0.01, 0.03, 0.1, 0.3, 1, 3, 10]:
-        trained_weights = train(train_x, train_y, parameters, \
-                            iterations=3000, learning_rate=0.0075, \
-                            lambd=l, print_cost=False)
-        print("Lambda value: {}".format(l))
-        print_results(train_x, train_y, trained_weights, 'Train')
-        print_results(dev_x, dev_y, trained_weights, 'Dev')
-    
+    #for l in [0.01, 0.03, 0.1, 0.3, 1, 3, 10]:
+    #    trained_weights = train(train_x, train_y, parameters, \
+    #                        iterations=3001, learning_rate=0.05, \
+    #                        lambd=l, print_cost=False)
+    #    print("\nLambda value: {}".format(l))
+    #    print_results(train_x, train_y, trained_weights, 'Train')
+    #    print_results(dev_x, dev_y, trained_weights, 'Dev')
+
     # WITH L2 REGULARIZATION AND BEST LAMBDA
     #trained_weights = train(train_x, train_y, parameters, \
-    #                    iterations=3000, learning_rate=0.0075, \
-    #                    lambd=1, print_cost=True)
+    #                    iterations=3000, learning_rate=0.05, \
+    #                    lambd=0.03, print_cost=True)
     #print_results(dev_x, dev_y, trained_weights, 'Dev')
 
 

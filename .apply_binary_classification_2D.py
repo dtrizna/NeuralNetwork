@@ -4,6 +4,7 @@ import scipy.io
 from modules.forwardProp import L_model_forward
 from modules.initialization import initialize_parameters_random, initialize_parameters_he
 from train import train
+from modules.predict import predict
 
 def load_2D_dataset(visualize=False):
     data = scipy.io.loadmat('datasets/binary_classification_2D/data.mat')
@@ -47,15 +48,24 @@ def plot_decision_boundary(model, X, y):
 def main():
     train_X, train_Y, test_X, test_Y = load_2D_dataset(False)
 
-    parameters = initialize_parameters_he([train_X.shape[0], 20, 3, 1])
-
-    # MODEL WITH HIGH VARIANCE
-    #trained_weights = train(train_X, train_Y, parameters, iterations=18000, learning_rate=0.3)
-
-    # MODEL WITH L2 REGULARIZATION AND SOLVED VARIANCE
-    trained_weights = train(train_X, train_Y, parameters, iterations=18000, learning_rate=0.3, lambd=0.1)
-
+    np.random.seed(1)
+    parameters = initialize_parameters_random([train_X.shape[0], 15, 10, 1])
+    print('Training without Regularization..')
+    trained_weights = train(train_X, train_Y, parameters, iterations=30000, learning_rate=0.5)
+    predict(train_X, train_Y, trained_weights)
+    predict(test_X, test_Y, trained_weights)
     plot_decision_boundary(lambda x: predict_dec(trained_weights, x.T), train_X, train_Y)
+
+    for l in [0.01, 0.03, 0.1, 0.3, 1, 3, 10]:
+        print('\nTraining with L2 Regularization (lambda = {})'.format(l))
+        parameters = initialize_parameters_random([train_X.shape[0], 15, 10, 1])
+        trained_weights = train(train_X, train_Y, parameters, \
+            iterations=30000, learning_rate=0.3, lambd=l, print_cost=False)
+        predict(train_X, train_Y, trained_weights)
+        predict(test_X, test_Y, trained_weights)
+        #plot_decision_boundary(lambda x: predict_dec(trained_weights, x.T), train_X, train_Y)
+
+
 
 if __name__ == '__main__':
     main()
