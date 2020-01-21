@@ -45,7 +45,9 @@ def L_model_backprop(AL, Y, caches, lambd=0):
     Y = Y.reshape(AL.shape) # after this line, Y is the same shape as AL
 
     # Cost Function's partial derivative in respect to AL
-    dAL = - (np.divide(Y, AL) - np.divide(1 - Y, 1 - AL))
+    # EPSILON ADDED FOR NUMERICAL STABILITY (not to divide by 0)
+    epsilon = 1e-5
+    dAL = - (np.divide(Y, AL + epsilon) - np.divide(1 - Y, 1 - AL + epsilon))
     
     # Lth layer (SIGMOID -> LINEAR) gradients
     grads["dA" + str(L-1)], \

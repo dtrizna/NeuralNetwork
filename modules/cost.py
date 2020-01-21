@@ -5,7 +5,10 @@ def compute_cost(AL, Y):
     cross-entropy cost
     """
     m = Y.shape[1]
-    cost = (np.dot(Y, np.log(AL).T) + np.dot((1 - Y), np.log(1 - AL).T)) / -m
+    
+    # EPSILON ADDED FOR NUMERICAL STABILITY (not to pass 0 into np.log)
+    epsilon = 1e-5
+    cost = (np.dot(Y, np.log(AL + epsilon).T) + np.dot((1 - Y), np.log(1 - AL + epsilon).T)) / -m
 
 
     cost = np.squeeze(cost) # e.g. this turns [[17]] into 17

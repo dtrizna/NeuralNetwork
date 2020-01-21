@@ -26,7 +26,7 @@ def train(X, Y, parameters, iterations = 1000, learning_rate = 0.0075, lambd = N
     
     costs = []
     if keep_prob and lambd:
-        print("Please specify either 'keep_prob' or 'lambd', but not both!")
+        print("Please specify either 'keep_prob' or 'lambd', not both!")
         return 1
 
     for i in range(0, iterations):
@@ -52,10 +52,11 @@ def train(X, Y, parameters, iterations = 1000, learning_rate = 0.0075, lambd = N
 
         parameters = update_parameters(parameters, grads, learning_rate)
 
-        if print_cost and i % 100 == 0:
+        if print_cost and i % 1000 == 0:
             print("Cost after iteration {}: {}".format(i, np.squeeze(cost)))
-            costs.append(cost)            
-    
+        if print_cost and i % 100 == 0:
+            costs.append(cost)
+
     if print_cost:
         # plot the cost
         plt.plot(np.squeeze(costs))
