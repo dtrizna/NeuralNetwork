@@ -4,9 +4,12 @@
 This repository represents basic framework for Neural Network model, realized using underlying mathematical concepts, therefore requires  no dependencies except `numpy` for linear algebra and `matplotlib` for visualizations.
 
 Binary classification is made represented using Sigmoid function with cross-entropy cost:
+
 ![equation](http://latex.codecogs.com/gif.latex?J=\frac{1}{m}\sum\limits_{i%20=%201}^{m}(y^{(i)}\log\left(a^{[L](i)}\right)%20+%20(1-y^{(i)})\log\left(1-%20a^{[L](i)}\right)))
 
+
 If L2 Regularization is invoked, cost is computed as follows:
+
 ![equation](http://latex.codecogs.com/gif.latex?J_{regularized}%20=%20\small%20\underbrace{-\frac{1}{m}%20\sum\limits_{i%20=%201}^{m}%20\large{(}\small%20y^{(i)}\log\left(a^{[L](i)}\right)%20+%20(1-y^{(i)})\log\left(1-%20a^{[L](i)}\right)%20\large{)}%20}_\text{cross-entropy%20cost}%20+%20\underbrace{\frac{1}{m}%20\frac{\lambda}{2}%20\sum\limits_l\sum\limits_k\sum\limits_j%20W_{k,j}^{[l]2}%20}_\text{L2%20regularization%20cost})
 
 # Usage Notes
