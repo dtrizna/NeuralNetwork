@@ -52,7 +52,7 @@ def train(X, Y, parameters, iterations = 1000, learning_rate = 0.0075, lambd = N
 
         parameters = update_parameters(parameters, grads, learning_rate)
 
-        if print_cost and i % 1000 == 0:
+        if print_cost and i % 100 == 0:
             print("Cost after iteration {}: {}".format(i, np.squeeze(cost)))
         if print_cost and i % 100 == 0:
             costs.append(cost)

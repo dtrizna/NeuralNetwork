@@ -90,8 +90,9 @@ to see it OR anything else to start training: ".format(len(train_x_orig)-1))
 
     # WITH L2 REGULARIZATION AND BEST LAMBDA
     trained_weights = train(train_x, train_y, parameters, \
-                        iterations=3000, learning_rate=0.05, \
-                        lambd=0.03, print_cost=True)
+                        iterations=4000, learning_rate=0.015, \
+                        lambd=0.01, print_cost=True)
+    print_results(train_x, train_y, trained_weights, 'Train')
     print_results(dev_x, dev_y, trained_weights, 'Dev')
 
 

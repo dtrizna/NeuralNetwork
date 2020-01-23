@@ -41,6 +41,7 @@ To train network with your dataset:
 
 2. If Cost Function (CF) is not decreasing over epochs:
   - try to decrease `learning_rate`
+  - verify if gradients in _backward propagation_ are computed correctly using `modules.gradCheck.gradient_check()`
 
 3. If training process is slow (little decrease of CF over epochs, long time to iterate over epoch), then:
   - try to increase `learning_rate`
@@ -75,6 +76,7 @@ To train network with your dataset:
 
 Number of training examples: 211  
 Dataset visualization: 200  
+Code: `.apply_binary_classification_2D.py`  
 <img src="datasets/binary_classification_2D/dataset.png" width="550" height="400" />
 
 ### Training without Regularization
@@ -90,14 +92,14 @@ Accuracy: 0.9149999999999998
 ```
 <img src="datasets/binary_classification_2D/overfit_example.png" width="550" height="400" />
 
-*Optimization Rationale:*
-Assuming that dataset has ~9-11 outliers (manual analysis on visualization) out of 211 examples, Bayes error is ~5%. Therefore this prediction _overfits_ training set and has _high variance_ problem. Regularization or more training data should improve outcome with desirable result of prediction accuracy close to ~95% on _dev set_.
+*Optimization Rationale:*  
+Assuming that dataset has ~9-11 outliers (manual analysis on visualization) out of 211 examples, Bayes error is ~5%. Therefore this prediction _overfits_ training set (97% > 95%) and has _high variance_ problem (dev prediction 91% < 95%>). Regularization or more training data should improve outcome with desirable result of prediction accuracy close to ~95% on _dev set_.
 
 ### Training with L2 Regularization 
 
-NN architecture: [211, 15, 10, 1]
-Learning rate = 0.5
-Lambda = 0.03
+NN architecture: [211, 15, 10, 1]  
+Learning rate = 0.5  
+Lambda = 0.03  
 ```
 Cost after iteration 29000: 0.23537491145509298
 Accuracy: 0.9241706161137442
@@ -107,15 +109,15 @@ Accuracy: 0.9349999999999998
 
 ## Dataset "binary_classification_cats"
 
-Number of training examples: 209
-Number of dev examples: 50
+Number of training examples: 209  
+Number of dev examples: 50  
 Code: `.apply_binary_classification_cats.py`  
+<img src="datasets/binary_classification_cats/cat_example.png" width="250" height="200" />
 
 ### Training without Regularization 
 
-Architecture = [209, 7, 1]
-learning_rate = 0.0075
-
+Architecture = [209, 20, 7, 1]  
+learning_rate = 0.0075  
 ```
 Cost after iteration 2500: 0.033421158465249526
 Prediction on Train set:
@@ -124,24 +126,22 @@ Prediction on Dev set:
 Accuracy: 0.68
 ```
 
-*Optimization Rationale:*
+*Optimization Rationale:*  
 Assuming that Human and Bayes errors are close to 0%, this realization has High Variance problem. Regularization or more training data should improve results.
 
 ### Training with L2 Regularization
 
-Improved of prediction up to 76% using L2 Regularization with lambda = 0.1 or 0.03:
+Architecture = [209, 20, 7, 1]  
+learning_rate = 0.05  
+lambda = 0.03  
 ```
+Cost after iteration 2900: 0.004509235155316043
 Prediction on Dev set:
-
-Lambda value: 0.01
-Accuracy: 0.72
-
-Lambda value: 0.03
-Accuracy: 0.76
-
-Lambda value: 0.1
-Accuracy: 0.76
-
-Lambda value: 0.3
-Accuracy: 0.74
+Accuracy: 0.78
 ```
+
+# References
+
+Code is became possible due to material taught by prof. Andrew Ng in following courses:
+- https://www.coursera.org/learn/machine-learning
+- https://www.coursera.org/specializations/deep-learning
