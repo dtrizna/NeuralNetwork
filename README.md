@@ -1,7 +1,15 @@
 
-# Usage Notes
+# Description
 
-![equation](http://latex.codecogs.com/gif.latex?%24%24%2d%5c%66%72%61%63%7b%31%7d%7b%6d%7d%5c%73%75%6d%5c%6c%69%6d%69%74%73%5f%7b%69%20%3d%20%31%7d%5e%7b%6d%7d%28%79%5e%7b%28%69%29%7d%5c%6c%6f%67%5c%6c%65%66%74%28%61%5e%7b%5b%4c%5d%28%69%29%7d%5c%72%69%67%68%74%29%20%2b%20%28%31%2d%79%5e%7b%28%69%29%7d%29%5c%6c%6f%67%5c%6c%65%66%74%28%31%2d%20%61%5e%7b%5b%4c%5d%28%69%29%7d%5c%72%69%67%68%74%29%29%a0%5c%74%61%67%7b%37%7d%24%24)
+This repository represents basic framework for Neural Network model, realized using underlying mathematical concepts, therefore requires  no dependencies except `numpy` for linear algebra and `matplotlib` for visualizations.
+
+Binary classification is made represented using Sigmoid function with cross-entropy cost:
+![equation](http://latex.codecogs.com/gif.latex?J=\frac{1}{m}\sum\limits_{i%20=%201}^{m}(y^{(i)}\log\left(a^{[L](i)}\right)%20+%20(1-y^{(i)})\log\left(1-%20a^{[L](i)}\right)))
+
+If L2 Regularization is invoked, cost is computed as follows:
+![equation](http://latex.codecogs.com/gif.latex?J_{regularized}%20=%20\small%20\underbrace{-\frac{1}{m}%20\sum\limits_{i%20=%201}^{m}%20\large{(}\small%20y^{(i)}\log\left(a^{[L](i)}\right)%20+%20(1-y^{(i)})\log\left(1-%20a^{[L](i)}\right)%20\large{)}%20}_\text{cross-entropy%20cost}%20+%20\underbrace{\frac{1}{m}%20\frac{\lambda}{2}%20\sum\limits_l\sum\limits_k\sum\limits_j%20W_{k,j}^{[l]2}%20}_\text{L2%20regularization%20cost})
+
+# Usage Notes
 
 To train network with your dataset:  
 1. Initialize Neural Network (NN), defines architecture using `initialization.initialize_parameters_random()`
@@ -19,9 +27,9 @@ To train network with your dataset:
 
 4. Tune Parameters/Hyperparameters on Dev set.
 5. Analyze algorithm performance on Test set.
-    - Use F1 Score  
+    - As evaluation metric F1 Score may be used.
 
-## TODO:
+## IN PROCESS:
 - F1 Score
 - Adam optimization
 - DropOut Regularization
@@ -56,15 +64,51 @@ To train network with your dataset:
 
 # Binary Classification Example
 
+## Dataset "binary_classification_2D"
+
+Number of training examples: 211
+Dataset visualization: 200
+![alt text](datasets/binary_classification_2D/dataset.png)
+
+### Training without Regularization
+
+NN architecture: [211, 15, 10, 1]
+Learning rate = 0.5
+```
+Cost after iteration 29000: 0.07998743929559801
+Prediction on Train set:
+Accuracy: 0.971563981042654
+Prediction on Dev set:
+Accuracy: 0.9149999999999998
+```
+![alt text](datasets/binary_classification_2D/overfit_example.png)
+
+*Optimization Rationale:*
+Assuming that dataset has ~9-11 outliers (manual analysis on visualization) out of 211 examples, Bayes error is ~5%. Therefore this prediction _overfits_ training set and has _high variance_ problem. Regularization or more training data should improve outcome with desirable result of prediction accuracy close to ~95% on _dev set_.
+
+### Training with L2 Regularization 
+
+NN architecture: [211, 15, 10, 1]
+Learning rate = 0.5
+Lambda = 0.03
+```
+Cost after iteration 29000: 0.23537491145509298
+Accuracy: 0.9241706161137442
+Accuracy: 0.9349999999999998
+```
+![alt text](datasets/binary_classification_2D/solved_overfit_by_L2.png)
+
+
 ## Dataset "binary_classification_cats"
 
 Number of training examples: 209
-Number of dev examples: 
+Number of dev examples: 50
 Code: `.apply_binary_classification_cats.py`  
 
 ### Training without Regularization 
 
-*learning_rate = 0.0075, 1 hidden layer with 7 AU:*
+Architecture = [209, 7, 1]
+learning_rate = 0.0075
 
 ```
 Cost after iteration 2500: 0.033421158465249526
@@ -75,7 +119,7 @@ Accuracy: 0.68
 ```
 
 *Optimization Rationale:*
-Assuming that Human and Bayer errors are close to 0%, this realization has High Variance problem. Regularization or more training data should improve results.
+Assuming that Human and Bayes errors are close to 0%, this realization has High Variance problem. Regularization or more training data should improve results.
 
 ### Training with L2 Regularization
 
