@@ -1,16 +1,26 @@
 
 # Description
 
-This repository represents basic framework for Neural Network model, realized using underlying mathematical concepts, therefore requires  no dependencies except `numpy` for linear algebra and `matplotlib` for visualizations.
+This repository contains mathematical framework for Neural Network model, therefore requires no dependencies except `numpy` for linear algebra and `matplotlib` for visualizations.
 
-Binary classification is made represented using Sigmoid function with cross-entropy cost:
+Binary classification uses _sigmoid_ activation function with cross-entropy cost:
 
 ![equation](http://latex.codecogs.com/gif.latex?J=\frac{1}{m}\sum\limits_{i%20=%201}^{m}(y^{(i)}\log\left(a^{[L](i)}\right)%20+%20(1-y^{(i)})\log\left(1-%20a^{[L](i)}\right)))
 
 
-If L2 Regularization is invoked, cost is computed as follows:
+If _L2 regularization_ is invoked, cost is computed as follows:
 
 ![equation](http://latex.codecogs.com/gif.latex?J_{regularized}%20=%20\small%20\underbrace{-\frac{1}{m}%20\sum\limits_{i%20=%201}^{m}%20\large{(}\small%20y^{(i)}\log\left(a^{[L](i)}\right)%20+%20(1-y^{(i)})\log\left(1-%20a^{[L](i)}\right)%20\large{)}%20}_\text{cross-entropy%20cost}%20+%20\underbrace{\frac{1}{m}%20\frac{\lambda}{2}%20\sum\limits_l\sum\limits_k\sum\limits_j%20W_{k,j}^{[l]2}%20}_\text{L2%20regularization%20cost})
+
+
+Activation Units (AU) in hidden layers are implemented using ReLU activation function.
+
+## IN PROCESS:
+- Multi-class predictions (softmax activation function)
+- F1 Score
+- Adam optimization
+- DropOut Regularization
+- Batch Normalization
 
 # Usage Notes
 
@@ -19,24 +29,18 @@ To train network with your dataset:
   
    *Example:*
 
-   Initialization of Binary Classification NN with 2 hidden layers and 5 Activation Units (AU) each:  
+   Initialization of Binary Classification NN with 2 hidden layers and 5 AU each:  
    `parameters = initialization.initialize_parameters_random([X.shape[0], 5, 5, 1])`
 
-2. Normalize features of Train/Dev/Test sets using `modules.featureNormalization()`
-3. Call `train.train()` by feeding into Train data set (X) and it's labeled data (Y)  
+2. Normalize features of train/dev/test sets using `modules.featureNormalization()`
+3. Call `train.train()` by feeding into _train_ data set (X) and it's labeled data (Y)  
   * to find correct `learning_rate`, use `print_cost=True`
   * if you supply `lambd` value to function, it will implement L2 Regularization
   * if you supply `keep_prob` value to function, it will implement DropOut Regularization
 
-4. Tune Parameters/Hyperparameters on Dev set.
-5. Analyze algorithm performance on Test set.
+4. Tune Parameters/Hyperparameters on _dev_ set.
+5. Analyze algorithm performance on _test_ set.
     - As evaluation metric F1 Score may be used.
-
-## IN PROCESS:
-- F1 Score
-- Adam optimization
-- DropOut Regularization
-- Batch Normalization
 
 # Optimization Notes
 
@@ -69,14 +73,14 @@ To train network with your dataset:
 
 ## Dataset "binary_classification_2D"
 
-Number of training examples: 211
-Dataset visualization: 200
+Number of training examples: 211  
+Dataset visualization: 200  
 ![alt text](datasets/binary_classification_2D/dataset.png)
 
 ### Training without Regularization
 
-NN architecture: [211, 15, 10, 1]
-Learning rate = 0.5
+NN architecture: [211, 15, 10, 1]  
+Learning rate = 0.5  
 ```
 Cost after iteration 29000: 0.07998743929559801
 Prediction on Train set:
@@ -84,7 +88,7 @@ Accuracy: 0.971563981042654
 Prediction on Dev set:
 Accuracy: 0.9149999999999998
 ```
-![alt text](datasets/binary_classification_2D/overfit_example.png)
+![alt text](datasets/binary_classification_2D/overfit_example.png =250x)
 
 *Optimization Rationale:*
 Assuming that dataset has ~9-11 outliers (manual analysis on visualization) out of 211 examples, Bayes error is ~5%. Therefore this prediction _overfits_ training set and has _high variance_ problem. Regularization or more training data should improve outcome with desirable result of prediction accuracy close to ~95% on _dev set_.
