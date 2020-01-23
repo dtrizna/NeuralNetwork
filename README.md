@@ -1,6 +1,8 @@
 
 # Usage Notes
 
+![equation](http://latex.codecogs.com/gif.latex?Concentration%3D%5Cfrac%7BTotalTemplate%7D%7BTotalVolume%7D)
+
 To train network with your dataset:  
 1. Initialize Neural Network (NN), defines architecture using `initialization.initialize_parameters_random()`
   
