@@ -75,7 +75,7 @@ To train network with your dataset:
 
 Number of training examples: 211  
 Dataset visualization: 200  
-![alt text](datasets/binary_classification_2D/dataset.png)
+<img src="datasets/binary_classification_2D/dataset.png" width="550" height="400" />
 
 ### Training without Regularization
 
@@ -88,7 +88,7 @@ Accuracy: 0.971563981042654
 Prediction on Dev set:
 Accuracy: 0.9149999999999998
 ```
-<img src="datasets/binary_classification_2D/overfit_example.png" width="400" height="400" />
+<img src="datasets/binary_classification_2D/overfit_example.png" width="550" height="400" />
 
 *Optimization Rationale:*
 Assuming that dataset has ~9-11 outliers (manual analysis on visualization) out of 211 examples, Bayes error is ~5%. Therefore this prediction _overfits_ training set and has _high variance_ problem. Regularization or more training data should improve outcome with desirable result of prediction accuracy close to ~95% on _dev set_.
@@ -103,8 +103,7 @@ Cost after iteration 29000: 0.23537491145509298
 Accuracy: 0.9241706161137442
 Accuracy: 0.9349999999999998
 ```
-![alt text](datasets/binary_classification_2D/solved_overfit_by_L2.png)
-
+<img src="datasets/binary_classification_2D/solved_overfit_by_L2.png" width="550" height="400" />
 
 ## Dataset "binary_classification_cats"
 
