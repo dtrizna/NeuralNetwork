@@ -52,7 +52,9 @@ def main():
     parameters = initialize_parameters_random([train_X.shape[0], 15, 10, 1])
     print('Training without Regularization..')
     trained_weights = train(train_X, train_Y, parameters, iterations=30000, learning_rate=0.5)
+    print('Prediction on Train set:')
     predict(train_X, train_Y, trained_weights)
+    print('Prediction on Dev set:')
     predict(test_X, test_Y, trained_weights)
     plot_decision_boundary(lambda x: predict_dec(trained_weights, x.T), train_X, train_Y)
 
@@ -60,7 +62,7 @@ def main():
         print('\nTraining with L2 Regularization (lambda = {})'.format(l))
         parameters = initialize_parameters_random([train_X.shape[0], 15, 10, 1])
         trained_weights = train(train_X, train_Y, parameters, \
-            iterations=30000, learning_rate=0.3, lambd=l, print_cost=False)
+            iterations=30000, learning_rate=0.3, lambd=l, print_cost=True)
         predict(train_X, train_Y, trained_weights)
         predict(test_X, test_Y, trained_weights)
         #plot_decision_boundary(lambda x: predict_dec(trained_weights, x.T), train_X, train_Y)
