@@ -88,7 +88,7 @@ Accuracy: 0.971563981042654
 Prediction on Dev set:
 Accuracy: 0.9149999999999998
 ```
-![alt text](datasets/binary_classification_2D/overfit_example.png =250x)
+<img src="datasets/binary_classification_2D/overfit_example.png" width="400" height="400" />
 
 *Optimization Rationale:*
 Assuming that dataset has ~9-11 outliers (manual analysis on visualization) out of 211 examples, Bayes error is ~5%. Therefore this prediction _overfits_ training set and has _high variance_ problem. Regularization or more training data should improve outcome with desirable result of prediction accuracy close to ~95% on _dev set_.
