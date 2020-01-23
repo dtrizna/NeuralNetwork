@@ -15,13 +15,6 @@ If _L2 regularization_ is invoked, cost is computed as follows:
 
 Activation Units (AU) in hidden layers are implemented using ReLU activation function.
 
-## IN PROCESS:
-- Multi-class predictions (softmax activation function)
-- F1 Score
-- Adam optimization
-- DropOut Regularization
-- Batch Normalization
-
 # Usage Notes
 
 To train network with your dataset:  
@@ -44,7 +37,7 @@ To train network with your dataset:
 
 # Optimization Notes
 
-1. In case of Deep Networks (5+ hidden layers), consider to use `initializaiton.initialize_parameters_he()` in order to overcome Vanishing/Exploding weight problem.  
+1. In case of Deep Networks (5+ hidden layers), consider to use `initializaiton.initialize_parameters_he()` in order to overcome _vanishing/exploding weights_ problem.  
 
 2. If Cost Function (CF) is not decreasing over epochs:
   - try to decrease `learning_rate`
@@ -61,13 +54,20 @@ To train network with your dataset:
   - adding more features (more information about dataset, e.g. improving quality of pictures)
 
 5. If algorithm does well on Training set, but prediction on Dev set is poor, then Variance reduction tecnhiques should help:
-  - Regularization (L2, Dropout)
+  - regularization (L2, Dropout)
   - more training data (gives better generalization)
 
-6. If prediction on Train and Dev sets is good, but algorithm fails to predict Test set or Real world data:
-  - be sure Dev and Test set come from same distribution (same data divided randomly)
-  - understand whether Dev set represents Real world requiremenents well
+6. If prediction on _train_ and _dev_ sets is good, but algorithm fails to predict _test_ set or real world data:
+  - be sure _dev_ and _test_ set come from same distribution (same data divided randomly)
+  - understand whether _dev_ set represents real world requiremenents well
   - analyze your evaluation metrics
+
+### IN PROCESS:
+- Multi-class predictions (softmax activation function)
+- F1 Score
+- Adam optimization
+- DropOut Regularization
+- Batch Normalization
 
 # Binary Classification Example
 
