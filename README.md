@@ -18,20 +18,20 @@ Activation Units (AU) in hidden layers are implemented using ReLU activation fun
 # Usage Notes
 
 To train network with your dataset:  
-1. Initialize Neural Network (NN), defines architecture using `initialization.initialize_parameters_random()`
+1. Initialize Neural Network (NN) using `modules.initialization.initialize_parameters_random()` (defines architecture of NN)
   
    *Example:*
 
    Initialization of Binary Classification NN with 2 hidden layers and 5 AU each:  
-   `parameters = initialization.initialize_parameters_random([X.shape[0], 5, 5, 1])`
+   `parameters = initialize_parameters_random([X.shape[0], 5, 5, 1])`
 
-2. Normalize features of train/dev/test sets using `modules.featureNormalization()`
+2. Normalize features of train/dev/test sets using `modules.featureNormalization.normalizeRows()`
 3. Call `train.train()` by feeding into _train_ data set (X) and it's labeled data (Y)  
-  * to find correct `learning_rate`, use `print_cost=True`
+  * to find correct `learning_rate` use `print_cost=True`
   * if you supply `lambd` value to function, it will implement L2 Regularization
   * if you supply `keep_prob` value to function, it will implement DropOut Regularization
 
-4. Tune Parameters/Hyperparameters on _dev_ set.
+4. Tune NN parameters and hyperparameters on _dev_ set (see _Optimization Notes_ below).
 5. Analyze algorithm performance on _test_ set.
     - As evaluation metric F1 Score may be used.
 
@@ -60,10 +60,11 @@ To train network with your dataset:
 
 6. If prediction on _train_ and _dev_ sets is good, but algorithm fails to predict _test_ set or real world data:
   - be sure _dev_ and _test_ set come from same distribution (same data divided randomly)
-  - understand whether _dev_ set represents real world requiremenents well
-  - analyze your evaluation metrics
+  - increase the _dev_ set to have better generalization during NN hyperparemeter tunage
+  - understand whether _dev_ and _test_ sets represent real world requiremenents well
+  - analyze used evaluation metrics (choose needed out of Accuracy, F1 score, False Positives/Negatives etc.)
 
-### IN PROCESS:
+### IMPLEMENTATION TODO:
 - Multi-class predictions (softmax activation function)
 - F1 Score
 - Adam optimization
