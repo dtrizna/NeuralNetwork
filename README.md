@@ -1,7 +1,7 @@
 
 # Description
 
-This repository contains mathematical framework for Neural Network model, therefore requires no dependencies except `numpy` for linear algebra and `matplotlib` for visualizations.
+This repository contains mathematical framework for standard fully-connected Neural Network model, therefore requires no dependencies except `numpy` for linear algebra and `matplotlib` for visualizations.
 
 Binary classification uses _sigmoid_ activation function with cross-entropy cost:
 
@@ -94,7 +94,7 @@ Accuracy: 0.9149999999999998
 <img src="datasets/binary_classification_2D/overfit_example.png" width="550" height="400" />
 
 *Optimization Rationale:*  
-Assuming that dataset has ~9-11 outliers (manual analysis on visualization) out of 211 examples, Bayes error is ~5%. Therefore this prediction _overfits_ training set (97% > 95%) and has _high variance_ problem (dev prediction 91% < 95%>). Regularization or more training data should improve outcome with desirable result of prediction accuracy close to ~95% on _dev set_.
+Assuming that dataset has ~9-11 outliers (manual analysis on visualization) out of 211 examples, Bayes error is ~5%. Therefore this prediction _overfits_ training set (97% > 95%) and has _high variance_ problem (dev prediction 91% < 95%). Regularization or more training data should improve outcome with desirable result of prediction accuracy close to ~95% on _dev set_.
 
 ### Training with L2 Regularization 
 
