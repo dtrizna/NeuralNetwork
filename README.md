@@ -1,7 +1,7 @@
 
 # Description
 
-This repository contains mathematical realization of standard (fully-connected) Neural Network model, therefore requires no dependencies except `numpy` for linear algebra and `matplotlib` for visualizations.
+This repository contains realization of standard (fully-connected) Neural Network model, using only math as basis, therefore requires no dependencies except `numpy` for linear algebra and `matplotlib` for visualizations. Yes, it's like 2+2 realized in Python, but slightly more sophisticated (mostly linear algebra and little of calculus), that gives you predictions!
 
 Binary classification uses _sigmoid_ activation function with cross-entropy cost:
 
