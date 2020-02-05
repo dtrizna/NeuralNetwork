@@ -1,7 +1,7 @@
 
 # Description
 
-This repository contains mathematical framework for standard fully-connected Neural Network model, therefore requires no dependencies except `numpy` for linear algebra and `matplotlib` for visualizations.
+This repository contains mathematical realization of standard (fully-connected) Neural Network model, therefore requires no dependencies except `numpy` for linear algebra and `matplotlib` for visualizations.
 
 Binary classification uses _sigmoid_ activation function with cross-entropy cost:
 
